@@ -1,6 +1,7 @@
 package main
 
 import (
+	"flag"
 	"html/template"
 	"log"
 	"net/http"
@@ -16,14 +17,17 @@ type templateHandler struct {
 }
 
 // ServeHTTP handles the HTTP request.
-func (t *templateHandler) ServeHTTP(w http.ResponseWriter, req *http.Request)  {
+func (t *templateHandler) ServeHTTP(w http.ResponseWriter, r *http.Request)  {
 	t.once.Do(func() {
 		t.templ = template.Must(template.ParseFiles(filepath.Join("templates", t.filename)))
 	})
-	t.templ.Execute(w, nil)
+	t.templ.Execute(w, r)
 }
 
 func main() {
+
+	var addr = flag.String("addr", ":8080", "The addr of the application.")
+	flag.Parse() // parse the flags
 
 	r := newRoom()
 
@@ -35,7 +39,8 @@ func main() {
 	go r.run()
 
 	// start the web server
-	if err := http.ListenAndServe(":8080", nil); err != nil {
+	log.Println("Starting web server on", *addr)
+	if err := http.ListenAndServe(*addr, nil); err != nil {
 		log.Fatal("ListenAndServe: ", err)
 	}
 
