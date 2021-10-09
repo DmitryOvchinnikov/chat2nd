@@ -5,8 +5,11 @@ import (
 	"html/template"
 	"log"
 	"net/http"
+	"os"
 	"path/filepath"
 	"sync"
+
+	"github.com/dmitryovchinnikov/chat2nd/trace"
 )
 
 // templ represents a single template
@@ -30,6 +33,7 @@ func main() {
 	flag.Parse() // parse the flags
 
 	r := newRoom()
+	r.tracer = trace.New(os.Stdout)
 
 	// root
 	http.Handle("/", &templateHandler{filename: "chat.html"})
