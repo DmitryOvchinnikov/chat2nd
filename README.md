@@ -11,5 +11,6 @@ Study project: chat application with WebSockets, OAuth, etc. 2nd edition
 ├── templates
 │   └── chat.html
 └── trace
-    └── tracer.go
+    ├── tracer.go
+    └── tracer_test.go
 ```
