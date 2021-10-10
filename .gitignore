@@ -90,5 +90,6 @@ images/**
 .config
 notes/**
 .vscode/**
+chat
 
 
