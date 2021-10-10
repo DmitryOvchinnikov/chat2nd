@@ -10,7 +10,8 @@ Study project: chat application with WebSockets, OAuth, etc. 2nd edition
 ├── main.go
 ├── room.go
 ├── templates
-│   └── chat.html
+│   ├── chat.html
+│   └── login.html
 └── trace
     ├── tracer.go
     └── tracer_test.go
