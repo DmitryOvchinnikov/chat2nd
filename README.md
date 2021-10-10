@@ -5,6 +5,7 @@ Study project: chat application with WebSockets, OAuth, etc. 2nd edition
 ```
 .
 ├── README.md
+├── auth.go
 ├── client.go
 ├── main.go
 ├── room.go
