@@ -7,6 +7,7 @@ Study project: chat application with WebSockets, OAuth, etc. 2nd edition
 ├── README.md
 ├── auth.go
 ├── client.go
+├── config.go #.gitignore
 ├── main.go
 ├── room.go
 ├── templates

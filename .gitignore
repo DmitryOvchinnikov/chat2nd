@@ -87,7 +87,8 @@ builds/**/images/*
 trace
 images/**
 
-.config
+config.go
+config.go
 notes/**
 .vscode/**
 chat

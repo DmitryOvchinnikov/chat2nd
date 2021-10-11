@@ -10,6 +10,8 @@ import (
 	"sync"
 
 	"github.com/dmitryovchinnikov/chat2nd/trace"
+	"github.com/stretchr/gomniauth"
+	"github.com/stretchr/gomniauth/providers/github"
 )
 
 // templ represents a single template
@@ -31,6 +33,12 @@ func main() {
 
 	var addr = flag.String("addr", ":8080", "The addr of the application.")
 	flag.Parse() // parse the flags
+
+	// setup gomniauth
+	gomniauth.SetSecurityKey(AUTH_KEY)
+	gomniauth.WithProviders(
+		github.New(KEY, SECRET, URL),
+		)
 
 	r := newRoom()
 	r.tracer = trace.New(os.Stdout)
