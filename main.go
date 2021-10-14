@@ -35,7 +35,7 @@ func (t *templateHandler) ServeHTTP(w http.ResponseWriter, r *http.Request)  {
 		data["UserData"]= objx.MustFromBase64(authCookie.Value)
 	}
 
-	t.templ.Execute(w, r)
+	t.templ.Execute(w, data)
 }
 
 func main() {
@@ -45,9 +45,7 @@ func main() {
 
 	// setup gomniauth
 	gomniauth.SetSecurityKey(AUTH_KEY)
-	gomniauth.WithProviders(
-		github.New(KEY, SECRET, URL),
-		)
+	gomniauth.WithProviders(github.New(KEY, SECRET, URL))
 
 	r := newRoom()
 	r.tracer = trace.New(os.Stdout)

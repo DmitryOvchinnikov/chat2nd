@@ -6,22 +6,23 @@ import (
 
 	"github.com/dmitryovchinnikov/chat2nd/trace"
 	"github.com/gorilla/websocket"
+	"github.com/stretchr/objx"
 )
 
 const (
-	socketBufferSize = 1024
+	socketBufferSize  = 1024
 	messageBufferSize = 256
 )
 
 var upgrader = &websocket.Upgrader{
-	ReadBufferSize: socketBufferSize,
+	ReadBufferSize:  socketBufferSize,
 	WriteBufferSize: messageBufferSize,
 }
 
 type room struct {
 	// forward is a channel that holds incoming messages
 	// that should be forwarded to the other clients.
-	forward chan []byte
+	forward chan *message
 
 	// join is a channel for clients wishing to join the room.
 	join chan *client
@@ -40,16 +41,16 @@ type room struct {
 // newRoom makes a new room.
 func newRoom() *room {
 	return &room{
-		forward: make(chan[]byte),
+		forward: make(chan *message),
 		join:    make(chan *client),
 		leave:   make(chan *client),
 		clients: make(map[*client]bool),
-		tracer: trace.Off(),
+		tracer:  trace.Off(),
 	}
 }
 
-func (r *room) run()  {
-	for  {
+func (r *room) run() {
+	for {
 		select {
 		case client := <-r.join:
 			// joining
@@ -61,7 +62,7 @@ func (r *room) run()  {
 			close(client.send)
 			r.tracer.Trace("Client left")
 		case msg := <-r.forward:
-			r.tracer.Trace("Message received: ", string(msg))
+			r.tracer.Trace("Message received: ", string(msg.Message))
 			// forward message to all clients
 			for client := range r.clients {
 				client.send <- msg
@@ -71,19 +72,25 @@ func (r *room) run()  {
 	}
 }
 
-func (r *room) ServeHTTP(w http.ResponseWriter, req *http.Request)  {
+func (r *room) ServeHTTP(w http.ResponseWriter, req *http.Request) {
 	socket, err := upgrader.Upgrade(w, req, nil)
 	if err != nil {
 		log.Fatal("ServeHTTP:", err)
 		return
 	}
 
-	cl := &client{
-		socket: socket,
-		send: make(chan []byte, messageBufferSize),
-		room: r,
+	authCookie, err := req.Cookie("auth")
+	if err != nil {
+		log.Fatal("Failed to get auth cookie:", err)
+		return
 	}
 
+	cl := &client{
+		socket:   socket,
+		send:     make(chan *message, messageBufferSize),
+		room:     r,
+		userData: objx.MustFromBase64(authCookie.Value),
+	}
 	r.join <- cl
 	defer func() { r.leave <- cl }()
 	go cl.write()
