@@ -39,6 +39,16 @@ Study project: chat application with WebSockets, OAuth, etc. 2nd edition
 - Give different types of data to templates
 - Work with the channels of your own types
 ### 3. Three Ways to Implement Profile Pictures
+- What the good practices to get additional information from auth services are, even when there are no standards in place
+- When it is appropriate to build abstractions into our code
+- How Go's zero-initialization pattern can save time and memory
+- How reusing an interface allows us to work with collections and individual objects in the same way as the existing interface did
+- How to use the [https://en.gravatar.com/](https://en.gravatar.com/) web service
+- How to do MD5 hashing in Go
+- How to upload files over HTTP and store them on a server
+- How to serve static files through a Go web server
+- How to use unit tests to guide the refactoring of code
+- How and when to abstract functionality from struct types into interfaces
 ### 4. Command-Line Tools to Find Domain Names
 ### 5. Building Distributed Systems and Working with Flexible Data
 ### 6. Exposing Data and Functionality through a RESTful Data Web Service API
