@@ -67,6 +67,7 @@ func main() {
 		w.Header().Set("Location", "/chat")
 		w.WriteHeader(http.StatusBadRequest)
 	})
+	http.HandleFunc("/uploader", uploaderHandler)
 
 	// get the room going
 	go r.run()
