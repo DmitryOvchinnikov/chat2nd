@@ -24,3 +24,21 @@ func TestAuthAvatar(t *testing.T) {
 	}
 
 }
+
+func TestGravatarAvatar(t *testing.T) {
+	var gravatarAvatar GravatarAvatar
+
+	client := new(client)
+	client.userData = map[string]interface{}{
+		"email": "dmitry.v.ovchinnikov@gmail.com",
+	}
+
+	url, err := gravatarAvatar.GetAvatarURL(client)
+	if err != nil {
+		t.Error("GravatarAvatar.GetAvatarURL should not return an error")
+	}
+	if url != "//www.gravatar.com/avatar/0bc83cb571cd1c50ba6f3e8a78ef1346" {
+		t.Errorf("GravatarAvatar.GetAvatarURL wrongly returned %s", url)
+	}
+
+}

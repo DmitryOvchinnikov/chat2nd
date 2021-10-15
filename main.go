@@ -47,7 +47,7 @@ func main() {
 	gomniauth.SetSecurityKey(AUTH_KEY)
 	gomniauth.WithProviders(github.New(KEY, SECRET, URL))
 
-	r := newRoom(UseAuthAvatar)
+	r := newRoom(UseGravatar)
 	r.tracer = trace.New(os.Stdout)
 
 	// root
