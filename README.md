@@ -57,6 +57,13 @@ Study project: chat application with WebSockets, OAuth, etc. 2nd edition
 - How to use unit tests to guide the refactoring of code
 - How and when to abstract functionality from struct types into interfaces
 ### 4. Command-Line Tools to Find Domain Names
+- How to build complete command-line applications with as little as a single code file
+- How to ensure that the tools we build can be composed with other tools using standard streams
+- How to interact with a simple third-party JSON RESTful API
+- How to utilize the standard in and out pipes in Go code
+- How to read from a streaming source, one line at a time
+- How to build a WHOIS client to look up domain information
+- How to store and use sensitive or deployment-specific information in environment variables
 ### 5. Building Distributed Systems and Working with Flexible Data
 ### 6. Exposing Data and Functionality through a RESTful Data Web Service API
 ### 7. Random Recommendations Web Service
