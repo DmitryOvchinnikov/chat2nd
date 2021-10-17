@@ -6,16 +6,23 @@ Study project: chat application with WebSockets, OAuth, etc. 2nd edition
 .
 ├── README.md
 ├── auth.go
+├── avatar.go
+├── avatar_test.go
+├── avatars
+│   └── ***.jpg
 ├── client.go
-├── config.go #.gitignore
+├── config.go
 ├── main.go
+├── message.go
 ├── room.go
 ├── templates
 │   ├── chat.html
-│   └── login.html
-└── trace
-    ├── tracer.go
-    └── tracer_test.go
+│   ├── login.html
+│   └── upload.html
+├── trace
+│   ├── tracer.go
+│   └── tracer_test.go
+└── upload.go
 ```
 
 ## Table of Contents

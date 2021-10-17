@@ -50,7 +50,7 @@ func main() {
 	gomniauth.SetSecurityKey(AUTH_KEY)
 	gomniauth.WithProviders(github.New(KEY, SECRET, URL))
 
-	r := newRoom(UseFileSystemAvatar)
+	r := newRoom(avatars)
 	r.tracer = trace.New(os.Stdout)
 
 	// root
